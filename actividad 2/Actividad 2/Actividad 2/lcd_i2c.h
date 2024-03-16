@@ -23,6 +23,9 @@ void lcd_i2c_write_string(char *a);
 void lcd_i2c_clr(void);
 void lcd_i2c_col_row(uint8_t x, uint8_t y);
 void lcd_i2c_write_int(int value,unsigned int field_length);
+void LCD_Command(unsigned char cmnd);
+void lcd_char(unsigned char char_data);
+void LCD_custom_char(unsigned char loc,unsigned char *msg);
 
 
 #endif /* LCD_I2C_H_ */
