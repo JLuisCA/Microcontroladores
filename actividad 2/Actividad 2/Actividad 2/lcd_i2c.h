@@ -9,8 +9,8 @@
 #ifndef LCD_I2C_H_
 #define LCD_I2C_H_
 
-#define PCF8574_ADDR	0x4E		//Dirección en Proteus
-//#define PCF8574_ADDR	0x4E		//Dirección del dispositivo:
+//#define PCF8574_ADDR	0x4E		//Dirección en Proteus
+#define PCF8574_ADDR	0x4E		//Dirección del dispositivo:
 
 #define LCD_RS			0x01		//Posición RS=0000 0001
 #define LCD_RW			0x02		//RW=0000 0010
@@ -26,6 +26,6 @@ void lcd_i2c_write_int(int value,unsigned int field_length);
 void LCD_Command(unsigned char cmnd);
 void lcd_char(unsigned char char_data);
 void LCD_custom_char(unsigned char loc,unsigned char *msg);
-
+void lcd_i2c_move_C(void);
 
 #endif /* LCD_I2C_H_ */

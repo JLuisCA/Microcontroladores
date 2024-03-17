@@ -172,15 +172,45 @@ void lcd_char(unsigned char char_data)
 	LCD_Command_Port &= ~(1<<EN);
 	_delay_ms(2);
 }
-void LCD_custom_char(unsigned char loc,unsigned char *msg)
+
+void LCD_Custom_Char (unsigned char loc, unsigned char *msg)
 {
-	unsigned char i;
-	if(loc<8)
-	{
-		LCD_Command (0X40 + (loc*8));
-		for (i=0;i<8;i++)
-		lcd_char(msg[i]);
-	}
-	
+    unsigned char i;
+    if(loc<8)
+    {
+     lcd_i2c_cmd (0x40 + (loc*8));   
+       for(i=0;i<8;i++) 
+           lcd_i2c_data(msg[i]);      
+    }   
 }
 
+
+void lcd_i2c_move_C(void){
+	char i;
+	unsigned char Character2[8] = {0x0E,0x0E,0x04,0x1F,0x15,0x04,0x0A,0x11 };
+	unsigned char Character1[8] = { 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 };
+	unsigned char Character3[8] = {0x0D,0x0D,0x05,0x1F,0x1A,0x1E,0x0A,0x11};
+	unsigned char Character4[8] = {0x0E,0x0E,0x04,0x1F,0x15,0x15,0x0A,0x11};
+	unsigned char Character5[8] = {0x06,0x16,0x14,0x1F,0x05,0x05,0x0A,0x11};
+	unsigned char Character6[8] = {0x0E,0x1F,0x1F,0x0E,0x04,0x02,0x04,0x02};
+	LCD_Custom_Char(3, Character1);
+	LCD_Custom_Char(0, Character6);
+	LCD_Custom_Char(2, Character6);
+	LCD_Custom_Char(1, Character2);
+	_delay_ms(50);
+	LCD_Custom_Char(1, Character3);
+	_delay_ms(50);
+	LCD_Custom_Char(1, Character4);
+	_delay_ms(50);
+	LCD_Custom_Char(1, Character5);
+	_delay_ms(50);
+	LCD_Custom_Char(4, Character1);
+	LCD_Custom_Char(5, Character1);
+	LCD_Custom_Char(6, Character1);
+	LCD_Custom_Char(7, Character1);
+	lcd_i2c_cmd(0xC0);
+	for (int i=0;i<8; i++){
+		lcd_i2c_data(i);		/* char at 'i'th position will display on lcd */
+		lcd_i2c_data(' ');		/* space between each custom char. */
+	}
+	}
